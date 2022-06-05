@@ -1,15 +1,17 @@
-import { Requester } from "../../domain/types/Requester";
+import querystring, { ParsedUrlQueryInput } from "querystring";
+
+import { Requester } from "../../domain/interfaces/Requester";
 
 export class JSONFetchRequester implements Requester {
     async get(
-        url: string,
+        baseUrl: string,
         queryData?: object,
-        headers?: object
+        headers?: HeadersInit
     ): Promise<object> {
-        const query = new URLSearchParams(queryData);
+        const query = querystring.stringify(queryData as ParsedUrlQueryInput); // TODO: check if there's a better way
+        const url = `${baseUrl}?${query}`;
         const response = await fetch(url, {
             method: "GET",
-            query,
             headers,
         });
         const responseBody = await response.json();
@@ -17,13 +19,17 @@ export class JSONFetchRequester implements Requester {
         return responseBody;
     }
 
-    async post(url: string, body?: object, headers?: object): Promise<object> {
+    async post(
+        url: string,
+        body?: object,
+        headers?: HeadersInit
+    ): Promise<object> {
         const response = await fetch(url, {
             method: "POST",
-            body,
+            body: JSON.stringify(body),
             headers,
         });
-        const responseBody = await response.json();
+        const responseBody = response.json();
 
         return responseBody;
     }
