@@ -1,3 +1,3 @@
-test('Sample unit test', () => {
-	expect(1).toEqual(1);
-})
+test("Sample unit test", () => {
+    expect(1).toEqual(1);
+});
