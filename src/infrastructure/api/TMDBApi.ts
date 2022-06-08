@@ -1,13 +1,13 @@
 import { Requester } from "../../domain/interfaces/Requester";
-import { ResponseValidator } from "../../domain/interfaces/ResponseValidator";
-import { MovieData } from "../../infrastructure/validator/MovieValidator"; // TODO: lay this out in proper location, maybe joi schemas in domain/schemas?
+import { MovieValidator } from "../../infrastructure/validator/MovieValidator";
+import { MovieData } from "../../domain/types/responses/MovieData";
 
 export class TMDBApi {
     constructor(
         private request: Requester,
         private baseUrl: string,
         private accessToken: string,
-        private validator: ResponseValidator
+        private movieValidator: MovieValidator
     ) {}
 
     private getAuthHeader(): { Authorization: string } {
@@ -20,7 +20,7 @@ export class TMDBApi {
         );
 
         try {
-            const validatedResponse = this.validator.validate(response);
+            const validatedResponse = this.movieValidator.validate(response);
 
             return validatedResponse;
         } catch (error) {

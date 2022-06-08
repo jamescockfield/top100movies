@@ -1,18 +1,34 @@
-import joi from "@hapi/joi";
-import "joi-extract-type";
+import joi from "joi";
 
-import { ResponseValidator } from "../../domain/interfaces/ResponseValidator";
-import { ValidatedResponseData } from "../../domain/types/ValidatedResponseData";
+import { ResponseValidator } from "./ResponseValidator";
+import { MovieData } from "../../domain/types/responses/MovieData";
+import { ValidationError } from "../../domain/errors/ValidationError";
 
-const movieResponseSchema = joi.object({});
+export class MovieValidator extends ResponseValidator {
+    private schema = joi.object({
+        genres: joi.object({
+            name: joi.string(),
+        }),
+        imdb_id: joi.string(),
+        popularity: joi.number(),
+        original_language: joi.string(),
+        release_date: joi.date(),
+        title: joi.string(),
+        vote_average: joi.number(),
+        vote_count: joi.number(),
+    });
 
-export type MovieData = joi.extractType<typeof movieResponseSchema>;
-
-export class MovieValidator implements ResponseValidator {
     public validate(responseData: object): MovieData {
         // TODO: check if this matches a proper TS type guard
-        joi.assert(responseData, movieResponseSchema); // TODO: would be nice to properly illustrate that this function throws
 
-        return responseData as ValidatedResponseData;
+        const result = this.schema.validate(responseData, this.validateOptions);
+
+        if (result.error) {
+            // TODO: would be nice to properly illustrate that this function throws
+
+            throw new ValidationError("Invalid movie details");
+        }
+
+        return result.value as MovieData;
     }
 }
