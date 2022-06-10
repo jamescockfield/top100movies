@@ -2,5 +2,5 @@ import { Config } from "@jest/types";
 
 export default {
     preset: "ts-jest",
-    testEnvironment: "node",
+    testEnvironment: "node"
 } as Config.InitialOptions;

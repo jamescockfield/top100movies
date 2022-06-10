@@ -14,9 +14,12 @@ export class TMDBApi {
         return { Authorization: `Bearer ${this.accessToken}` };
     }
 
-    private async getMovie(movieId: string): Promise<MovieData | null> {
+    public async getMovie(movieId: string): Promise<MovieData | null> {
+        const header = this.getAuthHeader()
         const response = await this.request.get(
-            `${this.baseUrl}/movie/${movieId}`
+            `${this.baseUrl}/movie/${movieId}`,
+            undefined,
+            header
         );
 
         try {
