@@ -8,6 +8,7 @@ export abstract class ResponseValidator implements ResponseValidatorInterface {
     protected validateOptions = {
         stripUnknown: true,
         presence: "required" as PresenceMode,
+        convert: false,
     };
 
     public abstract validate(responseData: object): ValidatedResponseData;

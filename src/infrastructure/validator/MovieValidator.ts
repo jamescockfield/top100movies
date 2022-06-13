@@ -6,13 +6,15 @@ import { ValidationError } from "../../domain/errors/ValidationError";
 
 export class MovieValidator extends ResponseValidator {
     private schema = joi.object({
-        genres: joi.object({
-            name: joi.string(),
-        }),
+        genres: joi.array().items(
+            joi.object({
+                name: joi.string(),
+            })
+        ),
         imdb_id: joi.string(),
         popularity: joi.number(),
         original_language: joi.string(),
-        release_date: joi.date(),
+        release_date: joi.string().pattern(/^\d{4}-\d{1,2}-\d{1,2}$/),
         title: joi.string(),
         vote_average: joi.number(),
         vote_count: joi.number(),

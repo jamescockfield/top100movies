@@ -1,9 +1,11 @@
 import { ValidatedResponseData } from "./ValidatedResponseData";
 
 export interface MovieData extends ValidatedResponseData {
-    genres: {
-        name: string;
-    };
+    genres: [
+        {
+            name: string;
+        }
+    ];
     imdb_id: string;
     popularity: number;
     original_language: string;

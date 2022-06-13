@@ -15,7 +15,7 @@ export class TMDBApi {
     }
 
     public async getMovie(movieId: string): Promise<MovieData | null> {
-        const header = this.getAuthHeader()
+        const header = this.getAuthHeader();
         const response = await this.request.get(
             `${this.baseUrl}/movie/${movieId}`,
             undefined,

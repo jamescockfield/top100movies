@@ -4,7 +4,6 @@ import { Express } from "express";
 import { App } from "../../../src/application/App";
 
 describe("app.ts integration test", () => {
-
     let app: Express;
     const aladdinId = 812;
 

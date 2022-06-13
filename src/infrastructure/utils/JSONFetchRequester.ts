@@ -1,4 +1,4 @@
-import fetch, { HeadersInit } from 'node-fetch';
+import fetch, { HeadersInit } from "node-fetch";
 
 import { Requester } from "../../domain/interfaces/Requester";
 
@@ -14,7 +14,7 @@ export class JSONFetchRequester implements Requester {
             method: "GET",
             headers,
         });
-        const responseBody = await response.json() as object;
+        const responseBody = (await response.json()) as object;
 
         return responseBody;
     }
@@ -29,7 +29,7 @@ export class JSONFetchRequester implements Requester {
             body: JSON.stringify(body),
             headers,
         });
-        const responseBody = await response.json() as object;
+        const responseBody = (await response.json()) as object;
 
         return responseBody;
     }

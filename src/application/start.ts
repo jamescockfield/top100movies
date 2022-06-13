@@ -1,5 +1,5 @@
 import { applicationConfig } from "./config/applicationConfig";
-import { App } from './App';
+import { App } from "./App";
 
 const app = App.getApp();
 
