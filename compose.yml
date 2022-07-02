@@ -1,0 +1,23 @@
+services:
+    backend:
+        container_name: top100-node
+        image: node:16-bullseye
+        ports:
+            - 3000:3000
+        command: npm run start
+        working_dir: /app
+        volumes:
+            - ./:/app
+    db:
+        container_name: top100-dynamodb
+        build:
+            context: .
+            dockerfile: dynamodb.Dockerfile
+        volumes:
+            - dynamodb:/home/dynamodblocal/data
+        command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+        ports:
+            - 8000:8000
+
+volumes:
+    dynamodb:
